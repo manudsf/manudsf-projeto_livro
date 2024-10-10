@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('book_id');
             $table->unsignedBigInteger('status_id');
+            $table->string('avaliacao', 5);
             $table->date('lido_em')->nullable();
         
     $table->foreign('user_id')->references('id')->on('table_users');

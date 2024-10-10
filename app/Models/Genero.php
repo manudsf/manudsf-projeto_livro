@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Genero extends Model
 {
-    protected $table = 'users';
-    protected $fillable = ['nome', 'email', 'password'];
+    protected $table = 'generos';
+    protected $fillable = ['nome'];'
 }
