@@ -46,32 +46,48 @@ class LeituraController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Leitura $leitura)
+    public function show($id)
     {
-        //
+        $leitura = Leitura::findOrFail($id);
+        return view('leitura.show', compact('leitura'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Leitura $leitura)
+    public function edit($id)
     {
-        //
+        $leitura = Leitura::findOrFail($id);
+        return view('leitura.edit', compact ('leitura'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Leitura $leitura)
+    public function update(Request $request, $id)
     {
-        //
+        $leitura = leitura::findOrFail($id);
+
+        $leitura->user_id= $request->input('user_id');
+        $leitura->book_id= $request->input('book_id');
+        $leitura->status_id= $request->input('status_id');
+        $leitura->avaliacao= $request->input('avaliacao');
+        $leitura->lido_em= $request->input('lido_em');
+
+        $leitura->save();
+
+        return redirect()->route('leitura.index');
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Leitura $leitura)
-    {
-        //
-    }
+   /**
+ * Remove the specified resource from storage.
+ */
+public function destroy($id)
+{
+    $leitura = Leitura::findOrFail($id);
+    $leitura->delete();
+    return redirect()->route('leitura.index');
+}
+
 }

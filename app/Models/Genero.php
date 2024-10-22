@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Genero extends Model
 {
-    protected $table = 'generos';
-    protected $fillable = ['nome'];'
+    protected $table = 'genero'; // Nome correto da tabela
+    protected $fillable = ['nome']; // Certifique-se de usar um array
 }

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Genero;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class GeneroController extends Controller
@@ -14,8 +13,7 @@ class GeneroController extends Controller
     public function index()
     {
         $generos = Genero::all();
-        return view('generos.index', compact('generos'));
-
+        return view('genero.index', compact('generos'));
     }
 
     /**
@@ -32,41 +30,49 @@ class GeneroController extends Controller
     public function store(Request $request)
     {
         $genero = new Genero([
-            'nome' => $request ->input('nome')
+            'nome' => $request->input('nome')
         ]);
         $genero->save();
         return redirect()->route('genero.index');
-        Route::resource('genero', GeneroController::class);
     }
+
     /**
      * Display the specified resource.
      */
-    public function show(Genero $genero)
+    public function show($id)
     {
-        //
+        $genero = Genero::findOrFail($id);
+        return view('genero.show', compact('genero'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Genero $genero)
+    public function edit($id)
     {
-        //
+        $genero = Genero::findOrFail($id);
+        return view('genero.edit', compact('genero'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Genero $genero)
+    public function update(Request $request, $id)
     {
-        //
+        $genero = Genero::findOrFail($id);
+        $genero->nome = $request->input('nome');
+        $genero->save();
+
+        return redirect()->route('genero.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Genero $genero)
+    public function destroy($id)
     {
-        //
+        $genero = Genero::findOrFail($id);
+        $genero->delete();
+        return redirect()->route('genero.index');
     }
 }
